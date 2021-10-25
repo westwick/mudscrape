@@ -5,6 +5,7 @@ const { JSDOM } = jsdom;
 const fs = require("fs");
 const fileName = "./mudscrape-client/content/players.json";
 const save = require(fileName);
+const { exec } = require("child_process");
 
 const url = "http://greatermud.com:22234/GreaterMUD/TopList";
 
@@ -57,12 +58,27 @@ console.log(chalk.green("running..."));
     }
   });
 
-  fs.writeFile(
+  await fs.writeFile(
     fileName,
     JSON.stringify({ players: savedPlayers }),
     function writeJSON(err) {
       if (err) return console.log(err);
       console.log("writing to " + fileName);
+    }
+  );
+
+  exec(
+    "bash update.sh",
+    {
+      env: { PATH: "C:\\Program Files\\git\\usr\\bin" },
+      shell: "C:\\Program Files\\git\\usr\\bin\\bash.exe",
+    },
+    (error, stdout, stderr) => {
+      console.log(stdout);
+      console.log(stderr);
+      if (error !== null) {
+        console.log(`exec error: ${error}`);
+      }
     }
   );
 })();
