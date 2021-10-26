@@ -60,7 +60,7 @@ console.log(chalk.green("running..."));
 
   await fs.writeFile(
     fileName,
-    JSON.stringify({ players: savedPlayers }),
+    JSON.stringify({ players: savedPlayers, lastUpdate: new Date() }),
     function writeJSON(err) {
       if (err) return console.log(err);
       console.log("writing to " + fileName);
