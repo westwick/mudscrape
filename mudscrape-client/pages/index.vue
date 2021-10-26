@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(player, idx) in players" :key="player.name">
+        <tr v-for="(player, idx) in sortedPlayers" :key="player.name">
           <td>{{ idx + 1 }}</td>
           <td class="text-left">{{ totalFormat(player.currentExp) }}</td>
           <td width="30%">{{ player.name }}</td>
@@ -74,6 +74,9 @@ export default {
     return { players: calculated, lastUpdate: players.lastUpdate }
   },
   computed: {
+    sortedPlayers() {
+      return this.players.sort((a, b) => b.currentExp - a.currentExp)
+    },
     lastUpdateString() {
       return DateTime.fromISO(this.lastUpdate).toRelative()
     },
