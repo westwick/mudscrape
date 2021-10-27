@@ -152,9 +152,21 @@ export default {
     },
   },
   mounted() {
-    this.setGraph(this.sortedPlayers[0])
-    this.setGraph(this.sortedPlayers[1])
-    this.setGraph(this.sortedPlayers[2])
+    if (this.$route.query && this.$route.query.players) {
+      const initialPlayers = this.$route.query.players.split(',')
+      initialPlayers.forEach((playerName) => {
+        const foundPlayer = this.sortedPlayers.find(
+          (sp) => sp.name === playerName
+        )
+        if (foundPlayer) {
+          this.setGraph(foundPlayer)
+        }
+      })
+    } else {
+      this.setGraph(this.sortedPlayers[0])
+      this.setGraph(this.sortedPlayers[1])
+      this.setGraph(this.sortedPlayers[2])
+    }
   },
 }
 </script>
