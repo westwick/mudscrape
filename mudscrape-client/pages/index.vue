@@ -2,6 +2,11 @@
   <div class="text-center">
     <h1 class="text-xl mt-8 mb-1 font-bold">GreaterMUD Exp Tracker</h1>
     <p class="text-gray-420 mb-8">Last updated {{ lastUpdateString }}</p>
+
+    <client-only>
+      <graphy :graphdata="graphdata"></graphy>
+    </client-only>
+
     <table class="main-table">
       <thead>
         <tr>
@@ -9,16 +14,27 @@
           <th class="text-left">Exp</th>
           <th>Name</th>
           <th>Last Hour</th>
+          <th>Last 8h</th>
           <th>Last 24h</th>
-          <th>Last Week</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(player, idx) in sortedPlayers" :key="player.name">
           <td>{{ idx + 1 }}</td>
           <td class="text-left">{{ totalFormat(player.currentExp) }}</td>
-          <td width="30%">{{ player.name }}</td>
-          <td>{{ expFormat(player.lastHour) }}</td>
+          <td
+            width="30%"
+            :class="{
+              empty: player.lastHour === 0 && player.time2total === 'no data',
+            }"
+          >
+            <span class="player-name" @click="setGraph(player)">{{
+              player.name
+            }}</span>
+          </td>
+          <td :class="{ empty: player.lastHour === 0 }">
+            {{ expFormat(player.lastHour) }}
+          </td>
           <td>
             <div v-if="player.time1total > 0">
               <span>{{ expFormat(player.time1avg) }}/hr</span><br />
@@ -32,7 +48,7 @@
             <div v-if="player.time2total > 0">
               <span>{{ expFormat(player.time2avg) }}/hr</span><br />
               <span class="text-gray-420 text-sm">
-                ({{ player.time2total }} total)
+                ({{ expFormat(player.time2total) }} total)
               </span>
             </div>
             <div v-else class="empty">0</div>
@@ -47,20 +63,43 @@
 import { DateTime } from 'luxon'
 
 export default {
+  components: {
+    graphy: () => {
+      if (process.client) {
+        return import('../comps/Graph.vue')
+      }
+    },
+  },
+  data() {
+    return {
+      graphdata: [],
+    }
+  },
   async asyncData({ $content }) {
     const players = await $content('players').fetch()
     const calculated = players.players.map((player) => {
       const lastHour = player.exp[1] ? player.exp[0] - player.exp[1] : 'no data'
-      const time1total = player.exp[24]
+
+      const time1total = player.exp[8]
+        ? player.exp[0] - player.exp[8]
+        : 'no data'
+      const time1avg = player.exp[8] ? Math.round(time1total / 8) : 'no data'
+
+      const time2total = player.exp[24]
         ? player.exp[0] - player.exp[24]
         : 'no data'
-      const time1avg = player.exp[24] ? Math.round(time1total / 24) : 'no data'
-      const time2total = player.exp[168]
-        ? player.exp[0] - player.exp[168]
-        : 'no data'
-      const time2avg = player.exp[168]
-        ? Math.round(time2total / 168)
-        : 'no data'
+      const time2avg = player.exp[24] ? Math.round(time2total / 24) : 'no data'
+
+      let graph
+      if (player.exp[24]) {
+        graph = []
+        for (let i = 0; i < 24; i++) {
+          graph.push(player.exp[i] - player.exp[i + 1])
+        }
+        graph.reverse()
+      } else {
+        graph = [0]
+      }
       return {
         name: player.name,
         currentExp: player.exp[0],
@@ -69,6 +108,7 @@ export default {
         time1avg,
         time2total,
         time2avg,
+        graph,
       }
     })
     return { players: calculated, lastUpdate: players.lastUpdate }
@@ -94,6 +134,27 @@ export default {
     totalFormat(num) {
       return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
+    setGraph(player) {
+      const hasPlayer = this.graphdata.find((gd) => gd.name === player.name)
+      console.log('hasPlayer', hasPlayer)
+      if (hasPlayer) {
+        const filteredData = this.graphdata.filter(
+          (gd) => gd.name !== player.name
+        )
+        console.log('filtered', filteredData)
+        this.graphdata = filteredData
+      } else {
+        this.graphdata.push({
+          name: player.name,
+          data: player.graph,
+        })
+      }
+    },
+  },
+  mounted() {
+    this.setGraph(this.sortedPlayers[0])
+    this.setGraph(this.sortedPlayers[1])
+    this.setGraph(this.sortedPlayers[2])
   },
 }
 </script>
@@ -143,5 +204,9 @@ table {
 }
 .empty {
   color: #3d3d3d;
+}
+.player-name {
+  cursor: pointer;
+  color: rgb(34, 153, 221);
 }
 </style>

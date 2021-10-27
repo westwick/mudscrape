@@ -11,6 +11,8 @@
   "dependencies": {
     "@nuxt/content": "^1.14.0",
     "core-js": "^3.15.1",
+    "highcharts": "^9.3.0",
+    "highcharts-vue": "^1.4.0",
     "luxon": "^2.0.2",
     "nuxt": "^2.15.7"
   },

@@ -21,7 +21,8 @@ console.log(chalk.green("running..."));
   let isPlayer = false;
   let count = 0;
 
-  const savedPlayers = save.players;
+  let savedPlayers = save.players;
+  const updatedPlayers = [];
 
   nodeList.forEach((node) => {
     count++;
@@ -52,15 +53,21 @@ console.log(chalk.green("running..."));
               exp: [currentPlayer.exp],
             });
           }
+          updatedPlayers.push(currentPlayer.name);
         }
         currentPlayer = { name: "", exp: "" };
       }
     }
   });
 
+  // remove players that are no longer on the top 50
+  savedPlayers = savedPlayers.filter((p) => {
+    return updatedPlayers.includes(p.name);
+  });
+
   await fs.writeFile(
     fileName,
-    JSON.stringify({ players: savedPlayers, lastUpdate: new Date() }),
+    JSON.stringify({ players: savedPlayers, lastUpdate: new Date() }, null, 2),
     function writeJSON(err) {
       if (err) return console.log(err);
       console.log("writing to " + fileName);
