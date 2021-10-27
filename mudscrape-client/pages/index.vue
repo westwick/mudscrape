@@ -149,6 +149,18 @@ export default {
           data: player.graph,
         })
       }
+      const params = { players: this.graphdata.map((p) => p.name).join(',') }
+      history.pushState(
+        {},
+        null,
+        this.$route.path +
+          '?' +
+          Object.keys(params)
+            .map((key) => {
+              return encodeURIComponent(key) + '=' + params[key]
+            })
+            .join('&')
+      )
     },
   },
   mounted() {
