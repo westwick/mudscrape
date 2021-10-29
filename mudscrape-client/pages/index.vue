@@ -2,6 +2,7 @@
   <div class="text-center">
     <h1 class="text-xl mt-8 mb-1 font-bold">GreaterMUD Exp Tracker</h1>
     <p class="text-gray-420 mb-8">Last updated {{ lastUpdateString }}</p>
+    <p>Exp/hr over last 3 days</p>
 
     <client-only>
       <graphy :graphdata="graphdata"></graphy>
@@ -14,8 +15,8 @@
           <th class="text-left">Exp</th>
           <th>Name</th>
           <th>Last Hour</th>
-          <th>Last 8h</th>
           <th>Last 24h</th>
+          <th>Last 3 days</th>
         </tr>
       </thead>
       <tbody>
@@ -80,20 +81,20 @@ export default {
     const calculated = players.players.map((player) => {
       const lastHour = player.exp[1] ? player.exp[0] - player.exp[1] : 'no data'
 
-      const time1total = player.exp[8]
-        ? player.exp[0] - player.exp[8]
-        : 'no data'
-      const time1avg = player.exp[8] ? Math.round(time1total / 8) : 'no data'
-
-      const time2total = player.exp[24]
+      const time1total = player.exp[24]
         ? player.exp[0] - player.exp[24]
         : 'no data'
-      const time2avg = player.exp[24] ? Math.round(time2total / 24) : 'no data'
+      const time1avg = player.exp[24] ? Math.round(time1total / 24) : 'no data'
+
+      const time2total = player.exp[72]
+        ? player.exp[0] - player.exp[72]
+        : 'no data'
+      const time2avg = player.exp[72] ? Math.round(time2total / 72) : 'no data'
 
       let graph
-      if (player.exp[24]) {
+      if (player.exp[72]) {
         graph = []
-        for (let i = 0; i < 24; i++) {
+        for (let i = 0; i < 72; i++) {
           graph.push(player.exp[i] - player.exp[i + 1])
         }
         graph.reverse()
