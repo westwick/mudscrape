@@ -1,4 +1,305 @@
 {
-  "players": [],
-  "lastUpdate": "2021-10-27T22:51:12.080Z"
+  "players": [
+    {
+      "name": "Chocolate",
+      "exp": [
+        20428500000
+      ]
+    },
+    {
+      "name": "Rhalin",
+      "exp": [
+        20266640000
+      ]
+    },
+    {
+      "name": "Uncle",
+      "exp": [
+        20055510000
+      ]
+    },
+    {
+      "name": "Cashollary",
+      "exp": [
+        19808860000
+      ]
+    },
+    {
+      "name": "Strider",
+      "exp": [
+        19636290000
+      ]
+    },
+    {
+      "name": "Tomoe",
+      "exp": [
+        17613620000
+      ]
+    },
+    {
+      "name": "Dij",
+      "exp": [
+        16440330000
+      ]
+    },
+    {
+      "name": "Boonaga",
+      "exp": [
+        16160180000
+      ]
+    },
+    {
+      "name": "Ggandt",
+      "exp": [
+        16096950000
+      ]
+    },
+    {
+      "name": "Redhawk",
+      "exp": [
+        14425600000
+      ]
+    },
+    {
+      "name": "Because",
+      "exp": [
+        14313940000
+      ]
+    },
+    {
+      "name": "Buckles",
+      "exp": [
+        14307020000
+      ]
+    },
+    {
+      "name": "Boost",
+      "exp": [
+        14188140000
+      ]
+    },
+    {
+      "name": "Baelen",
+      "exp": [
+        13294590000
+      ]
+    },
+    {
+      "name": "Lucius",
+      "exp": [
+        13172980000
+      ]
+    },
+    {
+      "name": "Reveal",
+      "exp": [
+        12726040000
+      ]
+    },
+    {
+      "name": "Madrick",
+      "exp": [
+        12365370000
+      ]
+    },
+    {
+      "name": "Failwhale",
+      "exp": [
+        11413360000
+      ]
+    },
+    {
+      "name": "Twogirlz",
+      "exp": [
+        11212980000
+      ]
+    },
+    {
+      "name": "Geezy",
+      "exp": [
+        10835090000
+      ]
+    },
+    {
+      "name": "Forged",
+      "exp": [
+        10186700000
+      ]
+    },
+    {
+      "name": "Eric",
+      "exp": [
+        10177720000
+      ]
+    },
+    {
+      "name": "Winterhawk",
+      "exp": [
+        10075550000
+      ]
+    },
+    {
+      "name": "Gev",
+      "exp": [
+        9964300000
+      ]
+    },
+    {
+      "name": "Deej",
+      "exp": [
+        8958940000
+      ]
+    },
+    {
+      "name": "Hermit",
+      "exp": [
+        8842710000
+      ]
+    },
+    {
+      "name": "Saitama",
+      "exp": [
+        8767420000
+      ]
+    },
+    {
+      "name": "Yang",
+      "exp": [
+        8585960000
+      ]
+    },
+    {
+      "name": "Bemir",
+      "exp": [
+        8468740000
+      ]
+    },
+    {
+      "name": "Azii",
+      "exp": [
+        8396120000
+      ]
+    },
+    {
+      "name": "Tickles",
+      "exp": [
+        8390680000
+      ]
+    },
+    {
+      "name": "Sparhawk",
+      "exp": [
+        8322810000
+      ]
+    },
+    {
+      "name": "Guntz",
+      "exp": [
+        8171200000
+      ]
+    },
+    {
+      "name": "Fwank",
+      "exp": [
+        8142640000
+      ]
+    },
+    {
+      "name": "Blackath",
+      "exp": [
+        8138190000
+      ]
+    },
+    {
+      "name": "Jolene",
+      "exp": [
+        7857970000
+      ]
+    },
+    {
+      "name": "Munch",
+      "exp": [
+        7828600000
+      ]
+    },
+    {
+      "name": "Placido",
+      "exp": [
+        7807780000
+      ]
+    },
+    {
+      "name": "Father",
+      "exp": [
+        7709130000
+      ]
+    },
+    {
+      "name": "Adina",
+      "exp": [
+        7468160000
+      ]
+    },
+    {
+      "name": "Breezy",
+      "exp": [
+        7389850000
+      ]
+    },
+    {
+      "name": "Jellydonut",
+      "exp": [
+        7020570000
+      ]
+    },
+    {
+      "name": "Grommet",
+      "exp": [
+        6979610000
+      ]
+    },
+    {
+      "name": "Azrael",
+      "exp": [
+        6792930000
+      ]
+    },
+    {
+      "name": "Qwert",
+      "exp": [
+        6741480000
+      ]
+    },
+    {
+      "name": "Greendo",
+      "exp": [
+        6633980000
+      ]
+    },
+    {
+      "name": "Tito",
+      "exp": [
+        6604390000
+      ]
+    },
+    {
+      "name": "Lonestar",
+      "exp": [
+        6509430000
+      ]
+    },
+    {
+      "name": "Kefka",
+      "exp": [
+        6489750000
+      ]
+    },
+    {
+      "name": "Why",
+      "exp": [
+        6410590000
+      ]
+    }
+  ],
+  "lastUpdate": "2021-11-05T23:00:01.599Z"
 }
