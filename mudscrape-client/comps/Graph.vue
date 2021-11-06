@@ -1,6 +1,6 @@
 <template>
   <div>
-    <highcharts :options="chartOptions"></highcharts>
+    <highcharts :options="chartOptions" :updateArgs="[true, true]"></highcharts>
   </div>
 </template>
 
@@ -12,22 +12,29 @@ export default {
   components: { highcharts: Chart },
   data() {
     return {
-      chartOptions: {
+      data: [],
+    }
+  },
+  computed: {
+    chartOptions() {
+      return {
         credits: { enabled: false },
         title: { text: undefined },
         chart: { backgroundColor: 'transparent' },
         yAxis: { title: false, gridLineColor: '#131313' },
         xAxis: { visible: false },
         colors: [
-          '#2f7ed8',
-          '#8bbc21',
-          '#910000',
-          '#1aadce',
-          '#492970',
-          '#f28f43',
-          '#77a1e5',
-          '#c42525',
-          '#a6c96a',
+          '#34ADAB',
+          '#90ee7e',
+          '#f45b5b',
+          '#aaeeee',
+          // '#aaeeee',
+          '#E5B25D',
+          '#DF1DB5',
+          // '#55BF3B',
+          // '#DF5353',
+          // '#7798BF',
+          // '#aaeeee',
         ],
         legend: {
           itemStyle: {
@@ -38,18 +45,7 @@ export default {
           },
         },
         series: this.graphdata,
-      },
-    }
-  },
-  watch: {
-    graphdata: {
-      handler() {
-        this.chartOptions = {
-          ...this.chartOptions,
-          series: this.graphdata,
-        }
-      },
-      deep: true,
+      }
     },
   },
 }

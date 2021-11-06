@@ -35,7 +35,7 @@ console.log(chalk.green("starting..."));
         );
         currentPlayer.name = name;
         count = 1;
-      } else if (text.indexOf(".") > 0 && parseInt(text) <= 50) {
+      } else if (text.indexOf(".") > 0 && parseInt(text) <= 100) {
         isPlayer = true;
         isExp = false;
       } else {

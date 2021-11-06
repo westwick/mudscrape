@@ -2,8 +2,8 @@
   <div class="text-center">
     <h1 class="text-2xl mt-8 mb-1 font-bold">GreaterMUD Exp Tracker</h1>
     <p class="text-xl mb-1">
-      <span class="tgl-active">PVP Realm</span> -
-      <nuxt-link to="/pve">PVE Realm</nuxt-link>
+      <nuxt-link to="/">PVP Realm</nuxt-link> -
+      <span class="tgl-active">PVE Realm</span>
     </p>
     <p class="text-gray-420 mb-8">Last updated {{ lastUpdateString }}</p>
     <p>
@@ -110,11 +110,11 @@ export default {
   data() {
     return {
       graphdata: [],
-      graphType: 2,
+      graphType: 1,
     }
   },
   async asyncData({ $content }) {
-    const players = await $content('players').fetch()
+    const players = await $content('players2').fetch()
     const calculated = players.players.map((player) => {
       const lastHour = player.exp[1] ? player.exp[0] - player.exp[1] : 'no data'
 
