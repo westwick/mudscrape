@@ -28,7 +28,7 @@
     </p>
 
     <client-only>
-      <graphy :graphdata="graphdata"></graphy>
+      <graphy :graphdata="graphdata" :lastUpdate="lastUpdate"></graphy>
     </client-only>
 
     <table class="main-table">
@@ -91,7 +91,7 @@
       </tbody>
     </table>
     <p class="mt-4 mb-4 text-gray-800 text-xs">
-      Whazzis? Whazzat? Hrglflmnblg... (v0.2.0)
+      Whazzis? Whazzat? Hrglflmnblg... (v0.2.1)
     </p>
   </div>
 </template>
