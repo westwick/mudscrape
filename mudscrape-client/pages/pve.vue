@@ -91,7 +91,7 @@
       </tbody>
     </table>
     <p class="mt-4 mb-4 text-gray-800 text-xs">
-      Whazzis? Whazzat? Hrglflmnblg... (v0.2.1)
+      Whazzis? Whazzat? Hrglflmnblg... (v0.2.2)
     </p>
   </div>
 </template>
@@ -110,7 +110,7 @@ export default {
   data() {
     return {
       graphdata: [],
-      graphType: 1,
+      graphType: 2,
     }
   },
   async asyncData({ $content }) {

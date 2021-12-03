@@ -45,59 +45,100 @@
       </thead>
       <tbody>
         <tr v-for="(player, idx) in sortedPlayers" :key="player.name">
-          <td>{{ idx + 1 }}</td>
-          <td class="text-left">{{ totalFormat(player.currentExp) }}</td>
-          <td
-            width="30%"
-            :class="{
-              empty: player.lastHour === 0 && player.time2total === 'no data',
-            }"
-          >
-            <span class="player-name" @click="setGraph(player)">{{
-              player.name
-            }}</span>
-          </td>
-          <td :class="{ empty: player.lastHour === 0 }">
-            {{ expFormat(player.lastHour) }}
-          </td>
-          <td>
-            <div v-if="player.time1total > 0">
-              <span>{{ expFormat(player.time1avg) }}/hr</span><br />
-              <span class="text-gray-420 text-sm">
-                ({{ expFormat(player.time1total) }} total)
-              </span>
-            </div>
-            <div v-else class="empty">0</div>
-          </td>
-          <td>
-            <div v-if="player.time2total > 0">
-              <span>{{ expFormat(player.time2avg) }}/hr</span><br />
-              <span class="text-gray-420 text-sm">
-                ({{ expFormat(player.time2total) }} total)
-              </span>
-            </div>
-            <div v-else class="empty">0</div>
-          </td>
-          <td>
-            <div v-if="player.time3total > 0">
-              <span>{{ expFormat(player.time3avg) }}/hr</span><br />
-              <span class="text-gray-420 text-sm">
-                ({{ expFormat(player.time3total) }} total)
-              </span>
-            </div>
-            <div v-else class="empty">0</div>
-          </td>
+          <template v-if="shouldShowPlayer(player.name)">
+            <td>{{ idx + 1 }}</td>
+            <td class="text-left">{{ totalFormat(player.currentExp) }}</td>
+            <td
+              width="30%"
+              :class="{
+                empty: player.lastHour === 0 && player.time2total === 'no data',
+              }"
+            >
+              <span class="player-name" @click="setGraph(player)">{{
+                player.name
+              }}</span>
+            </td>
+            <td :class="{ empty: player.lastHour === 0 }">
+              {{ expFormat(player.lastHour) }}
+            </td>
+            <td>
+              <div v-if="player.time1total > 0">
+                <span>{{ expFormat(player.time1avg) }}/hr</span><br />
+                <span class="text-gray-420 text-sm">
+                  ({{ expFormat(player.time1total) }} total)
+                </span>
+              </div>
+              <div v-else class="empty">0</div>
+            </td>
+            <td>
+              <div v-if="player.time2total > 0">
+                <span>{{ expFormat(player.time2avg) }}/hr</span><br />
+                <span class="text-gray-420 text-sm">
+                  ({{ expFormat(player.time2total) }} total)
+                </span>
+              </div>
+              <div v-else class="empty">0</div>
+            </td>
+            <td>
+              <div v-if="player.time3total > 0">
+                <span>{{ expFormat(player.time3avg) }}/hr</span><br />
+                <span class="text-gray-420 text-sm">
+                  ({{ expFormat(player.time3total) }} total)
+                </span>
+              </div>
+              <div v-else class="empty">0</div>
+            </td>
+          </template>
+          <template v-else>
+            <td>{{ idx + 1 }}</td>
+            <td class="text-left">{{ totalFormat(player.currentExp) }}</td>
+            <td width="30%">
+              <span>{{ player.name }}</span>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </template>
         </tr>
       </tbody>
     </table>
     <p class="mt-4 mb-4 text-gray-800 text-xs">
-      Whazzis? Whazzat? Hrglflmnblg... (v0.2.1)
+      Whazzis? Whazzat? Hrglflmnblg... (v0.2.2)
     </p>
   </div>
 </template>
 
 <script>
 import { DateTime } from 'luxon'
+
+const ls = 'god' + 'like'
+const isCool =
+  process.browser && localStorage.getItem(ls) === 'n' + 'o' + 'n' + 'sense'
+
+const usersToShow = [
+  'Arcane',
+  'Shredder',
+  'Ace',
+  'Vile',
+  'Black',
+  'Sludger',
+  'Goose',
+  'Ynot',
+  'Headcase',
+  'Midgar',
+  'Daimyo',
+  'Donald',
+  'Satoshi',
+  'Jeezy',
+  'Vagina',
+  'Xian',
+  'Thesifer',
+  'Hanzo',
+  'Thedoctor',
+  'Rhip',
+  'Lous',
+]
 
 export default {
   components: {
@@ -109,6 +150,7 @@ export default {
   },
   data() {
     return {
+      isCool: isCool,
       graphdata: [],
       graphType: 2,
     }
@@ -196,6 +238,9 @@ export default {
     },
   },
   methods: {
+    shouldShowPlayer(playerName) {
+      return usersToShow.includes(playerName) || this.isCool
+    },
     expFormat(num) {
       if (num > 999999) {
         return Math.round(num / 10000, 2) / 100 + 'mil'
