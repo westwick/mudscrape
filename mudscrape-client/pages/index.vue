@@ -112,9 +112,10 @@
 <script>
 import { DateTime } from 'luxon'
 
-const ls = 'god' + 'like'
-const isCool =
-  process.browser && localStorage.getItem(ls) === 'n' + 'o' + 'n' + 'sense'
+const k = ['qwertyuiopasdfghjklzxcvbnm']
+const ls = k[14] + k[8] + k[12] + k[18] + k[7] + k[17] + k[2]
+const ls2 = k[25] + k[8] + k[25] + k[11] + k[2] + k[25] + k[11] + k[2]
+const isCool = process.browser && localStorage.getItem(ls) === ls2
 
 const usersToShow = [
   'Arcane',
