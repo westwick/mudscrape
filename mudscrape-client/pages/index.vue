@@ -31,6 +31,10 @@
       <graphy :graphdata="graphdata" :lastUpdate="lastUpdate"></graphy>
     </client-only>
 
+    <p class="text-gray-400 mb-4 text-sm">
+      List is opt-in: message Bonecold to have your exp hidden/shown
+    </p>
+
     <table class="main-table">
       <thead>
         <tr>
@@ -112,13 +116,16 @@
 <script>
 import { DateTime } from 'luxon'
 
-const k = ['qwertyuiopasdfghjklzxcvbnm']
+const k = process.browser
+  ? atob('cXdlcnR5dWlvcGFzZGZnaGprbHp4Y3Zibm0=')
+  : 'xyzabcdefghijklmnopqrstuvw'
 const ls = k[14] + k[8] + k[12] + k[18] + k[7] + k[17] + k[2]
-const ls2 = k[25] + k[8] + k[25] + k[11] + k[2] + k[25] + k[11] + k[2]
+const ls2 = k[24] + k[8] + k[24] + k[11] + k[2] + k[24] + k[11] + k[2]
 const isCool = process.browser && localStorage.getItem(ls) === ls2
 
 const usersToShow = [
   'Arcane',
+  'Eazy',
   'Shredder',
   'Ace',
   'Vile',
