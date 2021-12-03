@@ -271,42 +271,44 @@ export default {
       })
     },
     setGraph(player) {
-      const hasPlayer = this.graphdata.find((gd) => gd.name === player.name)
+      if (usersToShow.includes(player.name) || this.isCool) {
+        const hasPlayer = this.graphdata.find((gd) => gd.name === player.name)
 
-      const graph =
-        this.graphType === 1
-          ? 'graph1'
-          : this.graphType === 2
-          ? 'graph2'
-          : 'graph3'
+        const graph =
+          this.graphType === 1
+            ? 'graph1'
+            : this.graphType === 2
+            ? 'graph2'
+            : 'graph3'
 
-      if (hasPlayer) {
-        const filteredData = this.graphdata.filter(
-          (gd) => gd.name !== player.name
+        if (hasPlayer) {
+          const filteredData = this.graphdata.filter(
+            (gd) => gd.name !== player.name
+          )
+          this.graphdata = filteredData
+        } else {
+          this.graphdata.push({
+            name: player.name,
+            data: player[graph],
+            marker: {
+              radius: 2,
+              symbol: 'circle',
+            },
+          })
+        }
+        const params = { players: this.graphdata.map((p) => p.name).join(',') }
+        history.pushState(
+          {},
+          null,
+          this.$route.path +
+            '?' +
+            Object.keys(params)
+              .map((key) => {
+                return encodeURIComponent(key) + '=' + params[key]
+              })
+              .join('&')
         )
-        this.graphdata = filteredData
-      } else {
-        this.graphdata.push({
-          name: player.name,
-          data: player[graph],
-          marker: {
-            radius: 2,
-            symbol: 'circle',
-          },
-        })
       }
-      const params = { players: this.graphdata.map((p) => p.name).join(',') }
-      history.pushState(
-        {},
-        null,
-        this.$route.path +
-          '?' +
-          Object.keys(params)
-            .map((key) => {
-              return encodeURIComponent(key) + '=' + params[key]
-            })
-            .join('&')
-      )
     },
     setGraphPlayers() {
       if (this.$route.query && this.$route.query.players) {

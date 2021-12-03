@@ -20,18 +20,20 @@ export default {
   computed: {
     chartOptions() {
       let xAxisCategories = []
-      for (let i = 0; i <= this.graphdata[0].data.length; i++) {
-        const d1 = DateTime.fromISO(this.lastUpdate)
-          .minus({
-            hours: this.graphdata[0].data.length - i,
-          })
-          .toLocaleString({ weekday: 'long', hour: 'numeric' })
-        const d2 = DateTime.fromISO(this.lastUpdate)
-          .minus({
-            hours: this.graphdata[0].data.length - i - 1,
-          })
-          .toLocaleString({ hour: 'numeric' })
-        xAxisCategories.push(d1 + ' - ' + d2)
+      if (this.graphdata && this.graphdata[0]) {
+        for (let i = 0; i <= this.graphdata[0].data.length; i++) {
+          const d1 = DateTime.fromISO(this.lastUpdate)
+            .minus({
+              hours: this.graphdata[0].data.length - i,
+            })
+            .toLocaleString({ weekday: 'long', hour: 'numeric' })
+          const d2 = DateTime.fromISO(this.lastUpdate)
+            .minus({
+              hours: this.graphdata[0].data.length - i - 1,
+            })
+            .toLocaleString({ hour: 'numeric' })
+          xAxisCategories.push(d1 + ' - ' + d2)
+        }
       }
       return {
         credits: { enabled: false },
@@ -65,7 +67,7 @@ export default {
             color: '#ffffff',
           },
         },
-        series: this.graphdata,
+        series: this.graphdata || [],
       }
     },
   },
