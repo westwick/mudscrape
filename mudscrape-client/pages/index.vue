@@ -300,7 +300,8 @@ export default {
             data: player[graph],
             marker: {
               radius: 2,
-              symbol: 'circle',
+              symbol:
+                'url(https://static.thenounproject.com/png/113312-200.png)',
             },
           })
         }
