@@ -146,6 +146,8 @@ const usersToShow = [
   'Thedoctor',
   'Rhip',
   'Lous',
+  //
+  'Beaver',
 ]
 
 export default {
