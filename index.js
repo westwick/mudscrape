@@ -94,20 +94,26 @@ console.log(chalk.green("starting..."));
   );
   console.log(chalk.white("done"));
 
-  console.log(chalk.green("updating git..."));
-  exec(
-    "bash update.sh",
-    {
-      env: { PATH: "C:\\Program Files\\git\\usr\\bin" },
-      shell: "C:\\Program Files\\git\\usr\\bin\\bash.exe",
-    },
-    (error, stdout, stderr) => {
-      console.log(stdout);
-      console.log(stderr);
-      if (error !== null) {
-        console.log(`exec error: ${error}`);
+  const h = new Date().getHours();
+  if (h < 9 || h > 12) {
+    console.log(chalk.white("updating git..."));
+    exec(
+      "bash update.sh",
+      {
+        env: { PATH: "C:\\Program Files\\git\\usr\\bin" },
+        shell: "C:\\Program Files\\git\\usr\\bin\\bash.exe",
+      },
+      (error, stdout, stderr) => {
+        console.log(stdout);
+        console.log(stderr);
+        if (error !== null) {
+          console.log(`exec error: ${error}`);
+        }
       }
-    }
-  );
+    );
+  } else {
+    console.log(chalk.white("skipping git update"));
+  }
+
   console.log(chalk.green("Complete!"));
 })();
