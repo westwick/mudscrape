@@ -98,11 +98,11 @@ console.log(chalk.green("starting..."));
   if (h < 9 || h > 12) {
     console.log(chalk.white("updating git..."));
     exec(
-      "bash update.sh",
-      {
-        env: { PATH: "C:\\Program Files\\git\\usr\\bin" },
-        shell: "C:\\Program Files\\git\\usr\\bin\\bash.exe",
-      },
+      "./update.sh",
+      //{
+      //  env: { PATH: "C:\\Program Files\\git\\usr\\bin" },
+      //  shell: "C:\\Program Files\\git\\usr\\bin\\bash.exe",
+      //},
       (error, stdout, stderr) => {
         console.log(stdout);
         console.log(stderr);
