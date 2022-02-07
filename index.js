@@ -95,7 +95,7 @@ console.log(chalk.green("starting..."));
   console.log(chalk.white("done"));
 
   const h = new Date().getHours();
-  if (h < 9 || h > 12) {
+  if (h < 8 || h > 13) {
     console.log(chalk.white("updating git..."));
     exec(
       "./update.sh",
