@@ -139,15 +139,14 @@ const usersToShow = [
   'Donald',
   'Satoshi',
   'Jeezy',
-  'Vagina',
   'Xian',
-  'Thesifer',
   'Hanzo',
-  'Thedoctor',
   'Rhip',
   'Lous',
   //
   'Beaver',
+  'Shaft',
+  'Abuk',
 ]
 
 export default {
