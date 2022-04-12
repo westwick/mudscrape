@@ -91,7 +91,7 @@
       </tbody>
     </table>
     <p class="mt-4 mb-4 text-gray-800 text-xs">
-      Whazzis? Whazzat? Hrglflmnblg... (v0.2.2)
+      Whazzis? Whazzat? Hrglflmnblg... (v0.3.0)
     </p>
   </div>
 </template>

@@ -31,10 +31,6 @@
       <graphy :graphdata="graphdata" :lastUpdate="lastUpdate"></graphy>
     </client-only>
 
-    <p class="text-gray-400 mb-4 text-sm">
-      List is opt-in: message Bonecold to have your exp hidden/shown
-    </p>
-
     <table class="main-table">
       <thead>
         <tr>
@@ -49,7 +45,7 @@
       </thead>
       <tbody>
         <tr v-for="(player, idx) in sortedPlayers" :key="player.name">
-          <template v-if="shouldShowPlayer(player.name)">
+          <template>
             <td>{{ idx + 1 }}</td>
             <td class="text-left">{{ totalFormat(player.currentExp) }}</td>
             <td
@@ -93,61 +89,17 @@
               <div v-else class="empty">0</div>
             </td>
           </template>
-          <template v-else>
-            <td>{{ idx + 1 }}</td>
-            <td class="text-left">{{ totalFormat(player.currentExp) }}</td>
-            <td width="30%">
-              <span>{{ player.name }}</span>
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </template>
         </tr>
       </tbody>
     </table>
     <p class="mt-4 mb-4 text-gray-800 text-xs">
-      Whazzis? Whazzat? Hrglflmnblg... (v0.2.2)
+      Whazzis? Whazzat? Hrglflmnblg... (v0.3.0)
     </p>
   </div>
 </template>
 
 <script>
 import { DateTime } from 'luxon'
-
-const k = process.browser
-  ? atob('cXdlcnR5dWlvcGFzZGZnaGprbHp4Y3Zibm0=')
-  : 'xyzabcdefghijklmnopqrstuvw'
-const ls = k[14] + k[8] + k[12] + k[18] + k[7] + k[17] + k[2]
-const ls2 = k[24] + k[8] + k[24] + k[11] + k[2] + k[24] + k[11] + k[2]
-const isCool = process.browser && localStorage.getItem(ls) === ls2
-
-const usersToShow = [
-  'Arcane',
-  'Eazy',
-  'Shredder',
-  'Ace',
-  'Vile',
-  'Black',
-  'Sludger',
-  'Goose',
-  'Ynot',
-  'Headcase',
-  'Midgar',
-  'Daimyo',
-  'Donald',
-  'Satoshi',
-  'Jeezy',
-  'Xian',
-  'Hanzo',
-  'Rhip',
-  'Lous',
-  //
-  'Beaver',
-  'Shaft',
-  'Abuk',
-]
 
 export default {
   components: {
@@ -159,7 +111,6 @@ export default {
   },
   data() {
     return {
-      isCool: isCool,
       graphdata: [],
       graphType: 2,
     }
@@ -247,9 +198,6 @@ export default {
     },
   },
   methods: {
-    shouldShowPlayer(playerName) {
-      return usersToShow.includes(playerName) || this.isCool
-    },
     expFormat(num) {
       if (num > 999999) {
         return Math.round(num / 10000, 2) / 100 + 'mil'
@@ -280,44 +228,42 @@ export default {
       })
     },
     setGraph(player) {
-      if (usersToShow.includes(player.name) || this.isCool) {
-        const hasPlayer = this.graphdata.find((gd) => gd.name === player.name)
+      const hasPlayer = this.graphdata.find((gd) => gd.name === player.name)
 
-        const graph =
-          this.graphType === 1
-            ? 'graph1'
-            : this.graphType === 2
-            ? 'graph2'
-            : 'graph3'
+      const graph =
+        this.graphType === 1
+          ? 'graph1'
+          : this.graphType === 2
+          ? 'graph2'
+          : 'graph3'
 
-        if (hasPlayer) {
-          const filteredData = this.graphdata.filter(
-            (gd) => gd.name !== player.name
-          )
-          this.graphdata = filteredData
-        } else {
-          this.graphdata.push({
-            name: player.name,
-            data: player[graph],
-            marker: {
-              radius: 2,
-              symbol: 'circle',
-            },
-          })
-        }
-        const params = { players: this.graphdata.map((p) => p.name).join(',') }
-        history.pushState(
-          {},
-          null,
-          this.$route.path +
-            '?' +
-            Object.keys(params)
-              .map((key) => {
-                return encodeURIComponent(key) + '=' + params[key]
-              })
-              .join('&')
+      if (hasPlayer) {
+        const filteredData = this.graphdata.filter(
+          (gd) => gd.name !== player.name
         )
+        this.graphdata = filteredData
+      } else {
+        this.graphdata.push({
+          name: player.name,
+          data: player[graph],
+          marker: {
+            radius: 2,
+            symbol: 'circle',
+          },
+        })
       }
+      const params = { players: this.graphdata.map((p) => p.name).join(',') }
+      history.pushState(
+        {},
+        null,
+        this.$route.path +
+          '?' +
+          Object.keys(params)
+            .map((key) => {
+              return encodeURIComponent(key) + '=' + params[key]
+            })
+            .join('&')
+      )
     },
     setGraphPlayers() {
       if (this.$route.query && this.$route.query.players) {
